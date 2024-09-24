@@ -20,7 +20,7 @@ class ListViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         
-        searchMovies("matrix")
+        searchMovies("batman")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieList.count
