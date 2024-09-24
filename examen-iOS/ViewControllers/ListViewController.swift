@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UITableViewDataSource {
+class ListViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,10 +17,15 @@ class ListViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let search = UISearchController(searchResultsController: nil)
+        search.delegate = self
+        search.searchBar.delegate = self
+        self.navigationItem.searchController = search
         // Do any additional setup after loading the view.
         tableView.dataSource = self
+        configureRefreshControl()
         
-        searchMovies("batman")
+        searchMovies("matrix")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieList.count
@@ -40,8 +45,64 @@ class ListViewController: UIViewController, UITableViewDataSource {
         detailViewController.movie = movie
     }
     
+    
+    
+    
+    
+    
+    
+    
+    func configureRefreshControl() {
+       // Add the refresh control to your UIScrollView object.
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc func handleRefreshControl() {
+        // Update your content…
+        searchMovies("a")
+    }
+    
+    // MARK: SearchBar Delegate
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchMovies(searchBar.text!)
+    }
+    
+    /*func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.notFoundLabel.isHidden = true
+        searchMovies("a")
+    }*/
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+         if (searchText.isEmpty) {
+             searchMovies("a")
+         }
+     
+     }
     // MARK: API call
     func searchMovies(_ query: String) {
+        Task {
+            guard let url = URL(string: "https://www.omdbapi.com/?apikey=fb7aca4&s=\(query)") else {
+                print("URL not valid")
+                movieList = []
+                return
+            }
+            
+            
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            let result = try JSONDecoder().decode(Movies.self, from: data)
+            movieList = result.movies
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
+        
+    }
+    
+    func searchMoviesById(_ query: String) {
         Task {
             guard let url = URL(string: "https://www.omdbapi.com/?apikey=fb7aca4&s=\(query)") else {
                 print("URL not valid")
