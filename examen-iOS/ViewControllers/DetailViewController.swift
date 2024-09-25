@@ -23,8 +23,8 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var countryLabel: UILabel!
     
-    @IBOutlet weak var plotLabel: UILabel!
     
+    @IBOutlet weak var plotTextView: UITextView!
     @IBOutlet weak var avatarImageView: UIImageView!
     
     var movie: Movie?
@@ -51,11 +51,11 @@ class DetailViewController: UIViewController {
         avatarImageView.loadFrom(url: movie.poster)
         titleLabel.text = movie.title
         yearLabel.text = movie.year
-        runtimeLabel.text = movie.runtime
-        directorLabel.text = movie.director
-        genreLabel.text = movie.genre
-        countryLabel.text = movie.country
-        plotLabel.text = movie.plot ?? "Sin información"
+        runtimeLabel.text = movie.runtime ?? "Sin información"
+        directorLabel.text = movie.director ?? "Sin información"
+        genreLabel.text = movie.genre ?? "Sin información"
+        countryLabel.text = movie.country ?? "Sin información"
+        plotTextView.text = movie.plot ?? "Sin información"
     }
     func searchMovieById(_ id: String, withResult result: @escaping (Movie) -> Void) {
         guard let url = URL(string: "https://www.omdbapi.com/?apikey=fb7aca4&i=\(id)") else {

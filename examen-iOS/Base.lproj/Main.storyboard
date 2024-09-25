@@ -124,7 +124,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sinopsis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-ru-WRe">
-                                <rect key="frame" x="16" y="712" width="361" height="21"/>
+                                <rect key="frame" x="16" y="691" width="361" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -186,13 +186,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Matrix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpf-Kq-Vmg" userLabel="Plot Label">
-                                <rect key="frame" x="16" y="732" width="361" height="21"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ups-67-FHu" userLabel=" Sinopsis Text View">
+                                <rect key="frame" x="16" y="710" width="361" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+                                <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uGi-L6-kUU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -203,7 +205,7 @@
                         <outlet property="countryLabel" destination="6CM-wN-M9X" id="qCQ-aX-BkI"/>
                         <outlet property="directorLabel" destination="Fxq-zW-IBN" id="muk-VV-5Ip"/>
                         <outlet property="genreLabel" destination="9Lx-S6-zJq" id="R7C-rQ-Vo4"/>
-                        <outlet property="plotLabel" destination="mpf-Kq-Vmg" id="1tQ-WD-Q5P"/>
+                        <outlet property="plotTextView" destination="Ups-67-FHu" id="A8t-Kb-US8"/>
                         <outlet property="runtimeLabel" destination="Fnk-Av-mCv" id="MM2-kM-QRf"/>
                         <outlet property="titleLabel" destination="5uV-Ub-s7r" id="Zpy-jE-6OK"/>
                         <outlet property="yearLabel" destination="zCk-Jt-4mt" id="PNU-DY-QZZ"/>
@@ -233,6 +235,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
