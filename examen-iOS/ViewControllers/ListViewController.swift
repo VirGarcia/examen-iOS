@@ -43,9 +43,31 @@ class ListViewController: UIViewController, UITableViewDataSource, UISearchBarDe
         let indexPath = tableView.indexPathForSelectedRow
         let movie = movieList[indexPath!.row]
         detailViewController.movie = movie
+        
+        
+       
+            
+            // Llama a la función para obtener más detalles de la película
+            searchMovieById(movie.id)
     }
     
-    
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let detailViewController = segue.destination as! DetailViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let movie = movieList[indexPath!.row]
+            
+            searchMovieById(movie.id) { detailedMovie in
+                DispatchQueue.main.async {
+                    detailViewController.movie = detailedMovie
+                    detailViewController.titleLabel.text = detailedMovie?.title
+                    detailViewController.yearLabel.text = detailedMovie?.year
+                    detailViewController.genreLabel.text = detailedMovie?.genre
+                    detailViewController.directorLabel.text = detailedMovie?.director
+                }
+            }
+        }
+    }*/
     
     
     
@@ -102,25 +124,23 @@ class ListViewController: UIViewController, UITableViewDataSource, UISearchBarDe
         
     }
     
-    func searchMoviesById(_ query: String) {
+    
+    func searchMovieById(_ id: String) {
         Task {
-            guard let url = URL(string: "https://www.omdbapi.com/?apikey=fb7aca4&s=\(query)") else {
+            guard let url = URL(string: "https://www.omdbapi.com/?apikey=fb7aca4&i=\(id)") else {
                 print("URL not valid")
-                movieList = []
                 return
             }
             
-            
             let (data, response) = try await URLSession.shared.data(from: url)
             
-            let result = try JSONDecoder().decode(Movies.self, from: data)
-            movieList = result.movies
+            let result = try JSONDecoder().decode(Movie.self, from: data)
             
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                // Aquí puedes actualizar tu UI con los detalles de la película
+                print(result)
             }
-            
         }
-        
     }
+
 }
