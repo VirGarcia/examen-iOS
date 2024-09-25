@@ -12,9 +12,12 @@ class MovieViewCell: UITableViewCell {
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     
+    @IBOutlet weak var yearLabel: UILabel!
+    
     func render (_ movie: Movie) {
         movieImageView.loadFrom(url: movie.poster)
         movieTitleLabel.text = movie.title
+        yearLabel.text = movie.year
     }
 
     override func awakeFromNib() {
